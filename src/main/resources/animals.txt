@@ -1,0 +1,4 @@
+Panthera tigris,Tiger
+Forest
+2015-07-15,220
+Mammal,true
