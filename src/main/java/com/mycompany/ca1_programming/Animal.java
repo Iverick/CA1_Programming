@@ -22,4 +22,51 @@ public abstract class Animal {
         this.dob = dob;
         this.weight = weight;
     }
+    
+    @Override
+    public String toString() {
+        return "Animal:" + " species = " + species + ", name = " + name + ", habitat = " + habitat + ", dob = " + dob;
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getHabitat() {
+        return habitat;
+    }
+
+    public void setHabitat(String habitat) {
+        this.habitat = habitat;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+    
+    
 }

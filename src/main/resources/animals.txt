@@ -1,4 +1,4 @@
-Panthera tigris,Tiger
+Mammal,Tiger,Shere Khan
 Forest
 2015-07-15,220
-Mammal,true
+Fur,true,Stripes,true
