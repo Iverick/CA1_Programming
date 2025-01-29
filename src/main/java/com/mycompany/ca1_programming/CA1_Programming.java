@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author User
+ * @author Pavel
  */
 public class CA1_Programming {
 
@@ -21,21 +21,33 @@ public class CA1_Programming {
         String inputFilePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "animals.txt").toAbsolutePath().toString();
 
         // Use local method to populate animals List with the data read from the input file
-        List<Animal> animals = parseInputFile(inputFilePath);
-        
+         List<Animal> animals = parseInputFile(inputFilePath);
+
+        interactWithUser(animals);
+    }
+
+    private static void interactWithUser(List<Animal> animals) {
+        // Declare required local variables
         Scanner sc = new Scanner(System.in);
         String quit = "quit";
         String userInput = "";
-        
+
         System.out.println("");
         System.out.println("Successfully import animals from the file!");
-        System.out.println("You can now search for an animal in our storage.");
-        System.out.println("Please enter a search query in the following format - '<parameter>=<value>'");
-        System.out.println("For example 'type=Animal'");
-        System.out.println("");
+        
+        if (animals.size() > 0) {
+            System.out.println("You can now search for an animal in our storage.");
+            System.out.println("Please enter a search query in the following format - '<parameter>=<value>'");
+            System.out.println("For example 'type=Animal'");
+            System.out.println("");
+        } else {
+            System.out.println("But it doesn't store any value.");
+            System.out.println("");
+        }
+        
         System.out.println("Type 'quit' if you want to terminate this program.");
         System.out.println("");
-        
+
         // Allows an interaction with the user via command shell until the user types 'quit'
         do {
             userInput = sc.nextLine();
@@ -70,6 +82,8 @@ public class CA1_Programming {
                 // Read fourth line
                 String[] detailsLine = bufferedReader.readLine().split(",");
 
+                // To populate animal with unique values for each type from the details line
+                // I have to use switch to differentiate between them
                 switch (type) {
                     case "Mammal":
                         Boolean fur = null;
@@ -85,6 +99,7 @@ public class CA1_Programming {
                             }
                         }
 
+                        // Create a new object of class Mammal with parsed values
                         animals.add(new Mammal(species, name, habitat, dob, weight, fur, stripes));
                         break;
 
@@ -127,6 +142,7 @@ public class CA1_Programming {
                         // Same as for other classes but with different properties
                         for (int i = 0; i < detailsLine.length; i++) {
                             if (detailsLine[i].equals("Wingspan")) {
+                                // Do the following to remove all non numerical values from the string to convert it into double value
                                 String winspanString = detailsLine[i + 1];
                                 winspanString = winspanString.replaceAll("[^0-9.]", "");
                                 wingspan = Double.parseDouble(winspanString);
