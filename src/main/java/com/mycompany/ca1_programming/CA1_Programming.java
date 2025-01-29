@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -19,11 +20,30 @@ public class CA1_Programming {
     public static void main(String[] args) {
         String inputFilePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "animals.txt").toAbsolutePath().toString();
 
+        // Use local method to populate animals List with the data read from the input file
         List<Animal> animals = parseInputFile(inputFilePath);
+        
+        Scanner sc = new Scanner(System.in);
+        String quit = "quit";
+        String userInput = "";
+        
+        System.out.println("");
+        System.out.println("Successfully import animals from the file!");
+        System.out.println("You can now search for an animal in our storage.");
+        System.out.println("Please enter a search query in the following format - '<parameter>=<value>'");
+        System.out.println("For example 'type=Animal'");
+        System.out.println("");
+        System.out.println("Type 'quit' if you want to terminate this program.");
+        System.out.println("");
+        
+        // Allows an interaction with the user via command shell until the user types 'quit'
+        do {
+            userInput = sc.nextLine();
 
-        for (Animal animal : animals) {
-            System.out.println(animal.toString());
-        }
+            for (Animal animal : animals) {
+                System.out.println(animal.toString());
+            }
+        } while (!userInput.equals(quit));
     }
 
     private static List<Animal> parseInputFile(String inputFilePath) {
@@ -125,4 +145,17 @@ public class CA1_Programming {
 
         return animals;
     }
+
+    // TODO: Validations
+//    private static String validateSpecies(String species) {
+//        try {
+//            species.matches("[A-Za-z ]+");
+//
+//            return species;
+//        } catch (IllegalArgumentException e) {
+//            System.err.println("The species must be text only: " + species);
+//
+//            throw new IllegalArgumentException();
+//        }
+//    }
 }
