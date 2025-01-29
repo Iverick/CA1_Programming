@@ -18,13 +18,20 @@ public class CA1_Programming {
 
     public static void main(String[] args) {
         String inputFilePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "animals.txt").toAbsolutePath().toString();
-        System.out.println(inputFilePath);
 
+        List<Animal> animals = parseInputFile(inputFilePath);
+
+        for (Animal animal : animals) {
+            System.out.println(animal.toString());
+        }
+    }
+
+    private static List<Animal> parseInputFile(String inputFilePath) {
         List<Animal> animals = new ArrayList<>();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFilePath))) {
             String line;
-            
+
             while ((line = bufferedReader.readLine()) != null) {
                 // Read first line
                 String[] speciesNameLine = line.split(",");
@@ -43,10 +50,6 @@ public class CA1_Programming {
                 // Read fourth line
                 String[] detailsLine = bufferedReader.readLine().split(",");
 
-                System.out.println(Arrays.toString(detailsLine));
-
-                System.out.println(type);
-
                 switch (type) {
                     case "Mammal":
                         Boolean fur = null;
@@ -64,11 +67,11 @@ public class CA1_Programming {
 
                         animals.add(new Mammal(species, name, habitat, dob, weight, fur, stripes));
                         break;
-                        
+
                     case "Fish":
                         int fins = 0;
                         String waterType = null;
-                        
+
                         // Same as for Mammal but with different properties
                         for (int i = 0; i < detailsLine.length; i++) {
                             if (detailsLine[i].equals("Fins")) {
@@ -77,14 +80,15 @@ public class CA1_Programming {
                                 waterType = detailsLine[i + 1];
                             }
                         }
-                        
+
                         animals.add(new Fish(species, name, habitat, dob, weight, fins, waterType));
                         break;
-                        
+
                     case "Reptile":
                         Boolean scales = null;
                         int legs = 0;
-                        
+
+                        // Same as for other classes but with different properties
                         for (int i = 0; i < detailsLine.length; i++) {
                             if (detailsLine[i].equals("Scales")) {
                                 scales = Boolean.parseBoolean(detailsLine[i + 1]);
@@ -92,14 +96,15 @@ public class CA1_Programming {
                                 legs = Integer.parseInt(detailsLine[i + 1]);
                             }
                         }
-                        
+
                         animals.add(new Reptile(species, name, habitat, dob, weight, scales, legs));
                         break;
-                        
+
                     case "Bird":
                         double wingspan = 0.0;
                         Boolean migratory = null;
-                        
+
+                        // Same as for other classes but with different properties
                         for (int i = 0; i < detailsLine.length; i++) {
                             if (detailsLine[i].equals("Wingspan")) {
                                 String winspanString = detailsLine[i + 1];
@@ -109,7 +114,7 @@ public class CA1_Programming {
                                 migratory = Boolean.parseBoolean(detailsLine[i + 1]);
                             }
                         }
-    
+
                         animals.add(new Bird(species, name, habitat, dob, weight, wingspan, migratory));
                         break;
                 }
@@ -118,8 +123,6 @@ public class CA1_Programming {
             System.err.println(e);
         }
 
-        for (Animal animal : animals) {
-            System.out.println(animal.toString());
-        }
+        return animals;
     }
 }
