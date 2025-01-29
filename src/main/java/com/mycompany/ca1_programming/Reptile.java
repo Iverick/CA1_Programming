@@ -17,4 +17,9 @@ public class Reptile extends Animal {
         this.scales = scales;
         this.legs = legs;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", scales = " + scales + ", legs = " + legs;
+    }
 }

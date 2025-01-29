@@ -1,4 +1,16 @@
 Mammal,Tiger,Shere Khan
 Forest
-2015-07-15,220
+2015/07/15,220
 Fur,true,Stripes,true
+Fish,Great White Shark,Jaws
+Ocean
+2010/06/21,1500
+Fins,5,Water Type,salt water
+Reptile,Komodo Dragon,Rex
+Island
+2010/09/10,70
+Scales,true,Legs,4
+Bird,Bald Eagle,Freedom
+Mountains
+2018/03/05,6.5
+Wingspan,230.0cm,Migratory,true

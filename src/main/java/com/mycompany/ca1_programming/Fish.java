@@ -17,4 +17,9 @@ public class Fish extends Animal {
         this.fins = fins;
         this.waterType = waterType;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", fins = " + fins + ", waterType = " + waterType;
+    }
 }

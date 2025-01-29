@@ -10,12 +10,18 @@ package com.mycompany.ca1_programming;
  */
 public class Bird extends Animal {
     private double wingspan;
-    private String beakType;
+    private Boolean migratory;
     
-    public Bird(String species, String name, String habitat, String dob, double weight, double wingSpan, String beakType) {
+    public Bird(String species, String name, String habitat, String dob, double weight, double wingSpan, boolean migratory) {
         super(species, name, habitat, dob, weight);
         this.wingspan = wingSpan;
-        this.beakType = beakType;
+        this.migratory = migratory;
     }
 
+    @Override
+    public String toString() {
+        String migratoryString = migratory ? "yes" : "no";
+        
+        return super.toString() + ", wingspan = " + wingspan + "cm" + ", migratory = " + migratoryString;
+    }
 }

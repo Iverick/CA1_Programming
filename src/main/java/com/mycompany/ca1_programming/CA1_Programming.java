@@ -63,6 +63,55 @@ public class CA1_Programming {
                         }
 
                         animals.add(new Mammal(species, name, habitat, dob, weight, fur, stripes));
+                        break;
+                        
+                    case "Fish":
+                        int fins = 0;
+                        String waterType = null;
+                        
+                        // Same as for Mammal but with different properties
+                        for (int i = 0; i < detailsLine.length; i++) {
+                            if (detailsLine[i].equals("Fins")) {
+                                fins = Integer.parseInt(detailsLine[i + 1]);
+                            } else if (detailsLine[i].equals("Water Type")) {
+                                waterType = detailsLine[i + 1];
+                            }
+                        }
+                        
+                        animals.add(new Fish(species, name, habitat, dob, weight, fins, waterType));
+                        break;
+                        
+                    case "Reptile":
+                        Boolean scales = null;
+                        int legs = 0;
+                        
+                        for (int i = 0; i < detailsLine.length; i++) {
+                            if (detailsLine[i].equals("Scales")) {
+                                scales = Boolean.parseBoolean(detailsLine[i + 1]);
+                            } else if (detailsLine[i].equals("Legs")) {
+                                legs = Integer.parseInt(detailsLine[i + 1]);
+                            }
+                        }
+                        
+                        animals.add(new Reptile(species, name, habitat, dob, weight, scales, legs));
+                        break;
+                        
+                    case "Bird":
+                        double wingspan = 0.0;
+                        Boolean migratory = null;
+                        
+                        for (int i = 0; i < detailsLine.length; i++) {
+                            if (detailsLine[i].equals("Wingspan")) {
+                                String winspanString = detailsLine[i + 1];
+                                winspanString = winspanString.replaceAll("[^0-9.]", "");
+                                wingspan = Double.parseDouble(winspanString);
+                            } else if (detailsLine[i].equals("Migratory")) {
+                                migratory = Boolean.parseBoolean(detailsLine[i + 1]);
+                            }
+                        }
+    
+                        animals.add(new Bird(species, name, habitat, dob, weight, wingspan, migratory));
+                        break;
                 }
             }
         } catch (Exception e) {
