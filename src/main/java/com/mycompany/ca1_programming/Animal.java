@@ -25,7 +25,7 @@ public abstract class Animal {
     
     @Override
     public String toString() {
-        return "Animal:" + " species = " + species + ", name = " + name + ", habitat = " + habitat + ", dob = " + dob;
+        return getClass().getSimpleName() + " species = " + species + ", name = " + name + ", habitat = " + habitat + ", dob = " + dob;
     }
 
     public String getSpecies() {

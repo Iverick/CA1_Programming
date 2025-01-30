@@ -1,6 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 package com.mycompany.ca1_programming;
 
 import java.io.BufferedReader;
@@ -23,20 +20,24 @@ public class CA1_Programming {
         // Use local method to populate animals List with the data read from the input file
         List<Animal> animals = parseInputFile(inputFilePath);
 
+        // Call following function to interact with the user
         interactWithUser(animals);
     }
 
     private static void interactWithUser(List<Animal> animals) {
         // Declare required local variables
-        Scanner sc = new Scanner(System.in);
         String quit = "quit";
-        String userInput = "";
+        String userInput;
+        List<Animal> animalsSearchResult;
+        String[] searchProperties = {"type", "species", "habitat", "name"};
+        
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("");
         System.out.println("Successfully import animals from the file!");
 
         // Check if our animals list contains any value and display different messages to the User.
-        if (animals.size() > 0) {
+        if (!animals.isEmpty()) {
             System.out.println("You can now search for an animal by its type, species, habitat or name in our storage.");
             System.out.println("Please enter a search query in the following format - '<parameter>=<value>'");
             System.out.println("For example 'type=Animal'");
@@ -56,17 +57,14 @@ public class CA1_Programming {
         }
         System.out.println("");
 
-        // Allows an interaction with the user via command shell until the user types 'quit'
+        // Use do while loop to interact with the user via command shell until the user types 'quit'
         do {
-            // Setup local variables
-            String[] searchProperties = {"type", "species", "habitat", "name"};
-            List<Animal> searchResult = new ArrayList<>();
-
             // Read user input
             userInput = sc.nextLine();
+            System.out.println("");
             // Check if provided search query matches required format
             if (!userInput.matches("^[a-zA-Z]+=[a-zA-Z0-9 ]+$")) {
-                System.out.println("Please provide a proper search query in the following format '<parameter>=<value>'.");
+                System.out.println("Please provide a proper search query in the following format '<parameter>=<value>' or type 'quit'.");
                 System.out.println("");
                 continue;
             }
@@ -83,36 +81,14 @@ public class CA1_Programming {
                 continue;
             }
 
-            // Loop over each animal to find if it matches the search query
-            for (Animal animal : animals) {
-                // Use switch to iterate between allowed search keys
-                switch (searchKey.toLowerCase()) {
-                    case "type":
-                        // If animal's type matches the search value add it to the searchResult list
-                        if (animal.getClass().getSimpleName().equalsIgnoreCase(searchValue)) {
-                            searchResult.add(animal);
-                        }
-                    case "habitat":
-                        // Same as the previous step but for a different Animal property
-                        if (animal.getHabitat().equalsIgnoreCase(searchValue)) {
-                            searchResult.add(animal);
-                        }
-                    case "name":
-                        if (animal.getName().equalsIgnoreCase(searchValue)) {
-                            searchResult.add(animal);
-                        }
-                    case "species":
-                        if (animal.getSpecies().equalsIgnoreCase(searchValue)) {
-                            searchResult.add(animal);
-                        }
-                }
-            }
+            // Call static searchAnimals method to perform a search on the list of animals and assign the result to searchResult list.
+            animalsSearchResult = searchAnimals(animals, searchKey, searchValue);
 
-            if (searchResult.size() > 0) {
+            if (!animalsSearchResult.isEmpty()) {
                 // Display the list of animals that match the search criteria
-                for (Animal foundAnimal : searchResult) {
+                for (Animal foundAnimal : animalsSearchResult) {
                     System.out.println("Following animals were found.");
-                    System.out.println("");
+                    System.out.println("#####################################################################");
                     System.out.println(foundAnimal.toString());
                     System.out.println("");
                 }
@@ -125,6 +101,37 @@ public class CA1_Programming {
             System.out.println("Please enter a search query or type 'quit' to leave this program.");
             System.out.println("");
         } while (!userInput.equals(quit));
+    }
+
+    private static List<Animal> searchAnimals(List<Animal> animals, String searchKey, String searchValue) {
+        List<Animal> animalMatches = new ArrayList<>();
+
+        // Loop over each animal to find if it matches the search query
+        for (Animal animal : animals) {
+            // Use switch to iterate between allowed search keys
+            switch (searchKey.toLowerCase()) {
+                case "type":
+                    // If animal's type matches the search value add it to the matches list
+                    if (animal.getClass().getSimpleName().equalsIgnoreCase(searchValue)) {
+                        animalMatches.add(animal);
+                    }
+                case "habitat":
+                    // Same as the previous step but for a different Animal property
+                    if (animal.getHabitat().equalsIgnoreCase(searchValue)) {
+                        animalMatches.add(animal);
+                    }
+                case "name":
+                    if (animal.getName().equalsIgnoreCase(searchValue)) {
+                        animalMatches.add(animal);
+                    }
+                case "species":
+                    if (animal.getSpecies().equalsIgnoreCase(searchValue)) {
+                        animalMatches.add(animal);
+                    }
+            }
+        }
+
+        return animalMatches;
     }
 
     private static List<Animal> parseInputFile(String inputFilePath) {
