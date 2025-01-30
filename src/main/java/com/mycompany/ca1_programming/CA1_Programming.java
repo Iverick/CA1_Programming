@@ -21,7 +21,7 @@ public class CA1_Programming {
         String inputFilePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "animals.txt").toAbsolutePath().toString();
 
         // Use local method to populate animals List with the data read from the input file
-         List<Animal> animals = parseInputFile(inputFilePath);
+        List<Animal> animals = parseInputFile(inputFilePath);
 
         interactWithUser(animals);
     }
@@ -34,9 +34,10 @@ public class CA1_Programming {
 
         System.out.println("");
         System.out.println("Successfully import animals from the file!");
-        
+
+        // Check if our animals list contains any value and display different messages to the User.
         if (animals.size() > 0) {
-            System.out.println("You can now search for an animal in our storage.");
+            System.out.println("You can now search for an animal by its type, species, habitat or name in our storage.");
             System.out.println("Please enter a search query in the following format - '<parameter>=<value>'");
             System.out.println("For example 'type=Animal'");
             System.out.println("");
@@ -44,17 +45,85 @@ public class CA1_Programming {
             System.out.println("But it doesn't store any value.");
             System.out.println("");
         }
-        
+
         System.out.println("Type 'quit' if you want to terminate this program.");
+        System.out.println("");
+
+        System.out.println("");
+        System.out.println("FOR TESTING PURPOSES REMOVE LATER!");
+        for (Animal animal : animals) {
+            System.out.println(animal.toString());
+        }
         System.out.println("");
 
         // Allows an interaction with the user via command shell until the user types 'quit'
         do {
-            userInput = sc.nextLine();
+            // Setup local variables
+            String[] searchProperties = {"type", "species", "habitat", "name"};
+            List<Animal> searchResult = new ArrayList<>();
 
-            for (Animal animal : animals) {
-                System.out.println(animal.toString());
+            // Read user input
+            userInput = sc.nextLine();
+            // Check if provided search query matches required format
+            if (!userInput.matches("^[a-zA-Z]+=[a-zA-Z0-9 ]+$")) {
+                System.out.println("Please provide a proper search query in the following format '<parameter>=<value>'.");
+                System.out.println("");
+                continue;
             }
+
+            // Parse user input and add it to an inputAttributes array
+            String[] inputAttributes = userInput.split("=");
+            String searchKey = inputAttributes[0];
+            String searchValue = inputAttributes[1];
+
+            // Check if we can perform a search with the provided search key
+            if (!Arrays.asList(searchProperties).contains(searchKey)) {
+                System.out.println("Cannot perform search for provided parameter - " + searchKey + ".");
+                System.out.println("");
+                continue;
+            }
+
+            // Loop over each animal to find if it matches the search query
+            for (Animal animal : animals) {
+                // Use switch to iterate between allowed search keys
+                switch (searchKey.toLowerCase()) {
+                    case "type":
+                        // If animal's type matches the search value add it to the searchResult list
+                        if (animal.getClass().getSimpleName().equalsIgnoreCase(searchValue)) {
+                            searchResult.add(animal);
+                        }
+                    case "habitat":
+                        // Same as the previous step but for a different Animal property
+                        if (animal.getHabitat().equalsIgnoreCase(searchValue)) {
+                            searchResult.add(animal);
+                        }
+                    case "name":
+                        if (animal.getName().equalsIgnoreCase(searchValue)) {
+                            searchResult.add(animal);
+                        }
+                    case "species":
+                        if (animal.getSpecies().equalsIgnoreCase(searchValue)) {
+                            searchResult.add(animal);
+                        }
+                }
+            }
+
+            if (searchResult.size() > 0) {
+                // Display the list of animals that match the search criteria
+                for (Animal foundAnimal : searchResult) {
+                    System.out.println("Following animals were found.");
+                    System.out.println("");
+                    System.out.println(foundAnimal.toString());
+                    System.out.println("");
+                }
+            } else {
+                // Display the following message if no animals match.
+                System.out.println("Could not find animals for your search query - " + userInput + ".");
+                System.out.println("");
+            }
+
+            System.out.println("Please enter a search query or type 'quit' to leave this program.");
+            System.out.println("");
         } while (!userInput.equals(quit));
     }
 
