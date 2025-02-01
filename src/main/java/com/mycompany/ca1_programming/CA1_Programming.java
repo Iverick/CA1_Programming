@@ -21,26 +21,20 @@ public class CA1_Programming {
         List<Animal> animals = parseInputFile(inputFilePath);
 
         // Call following function to interact with the user
+        displaySearchInstructions(animals.size() > 0);
         interactWithUser(animals);
     }
-
-    private static void interactWithUser(List<Animal> animals) {
-        // Declare required local variables
-        String quit = "quit";
-        String userInput;
-        List<Animal> animalsSearchResult;
-        String[] searchProperties = {"type", "species", "habitat", "name"};
-        
-        Scanner sc = new Scanner(System.in);
-
+    
+    private static void displaySearchInstructions(Boolean isAnimalsEmpty) {
         System.out.println("");
         System.out.println("Successfully import animals from the file!");
 
         // Check if our animals list contains any value and display different messages to the User.
-        if (!animals.isEmpty()) {
+        if (isAnimalsEmpty) {
             System.out.println("You can now search for an animal by its type, species, habitat or name in our storage.");
             System.out.println("Please enter a search query in the following format - '<parameter>=<value>'");
             System.out.println("For example 'type=Animal'");
+            System.out.println("Enter '*' if you want to see a list of all animals.");
             System.out.println("");
         } else {
             System.out.println("But it doesn't store any value.");
@@ -49,21 +43,40 @@ public class CA1_Programming {
 
         System.out.println("Type 'quit' if you want to terminate this program.");
         System.out.println("");
+    }
 
-        System.out.println("");
-        System.out.println("FOR TESTING PURPOSES REMOVE LATER!");
-        for (Animal animal : animals) {
-            System.out.println(animal.toString());
-        }
-        System.out.println("");
+    private static void interactWithUser(List<Animal> animals) {
+        // Declare required local variables
+        String quit = "quit";
+        String displayAll = "*";
+        String userInput;
+        List<Animal> animalsSearchResult;
+        String[] searchProperties = {"type", "species", "habitat", "name"};
+        String seachQueryRegex = "^[a-zA-Z]+=[a-zA-Z0-9 ]+$";
+        
+        Scanner sc = new Scanner(System.in);
 
         // Use do while loop to interact with the user via command shell until the user types 'quit'
         do {
             // Read user input
             userInput = sc.nextLine();
             System.out.println("");
+            
+            // Displays all animals
+            if (userInput.equals(displayAll)) {
+                System.out.println("The list of all animals added to our storage.");
+                System.out.println("");
+                for (Animal animal : animals) {
+                    System.out.println(animal.toString());
+                }
+                System.out.println("");
+                System.out.println("Please enter a search query or type 'quit' to leave this program.");
+                System.out.println("");
+                continue;
+            }
+            
             // Check if provided search query matches required format
-            if (!userInput.matches("^[a-zA-Z]+=[a-zA-Z0-9 ]+$")) {
+            if (!userInput.matches(seachQueryRegex)) {
                 System.out.println("Please provide a proper search query in the following format '<parameter>=<value>' or type 'quit'.");
                 System.out.println("");
                 continue;
@@ -76,7 +89,7 @@ public class CA1_Programming {
 
             // Check if we can perform a search with the provided search key
             if (!Arrays.asList(searchProperties).contains(searchKey)) {
-                System.out.println("Cannot perform search for provided parameter - " + searchKey + ".");
+                System.out.println("Cannot perform search with a provided parameter - " + searchKey + ".");
                 System.out.println("");
                 continue;
             }
@@ -140,7 +153,12 @@ public class CA1_Programming {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFilePath))) {
             String line;
 
-            while ((line = bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null ) {
+                // Skip empty lines
+                if (line.trim().isEmpty()) {
+                    continue; 
+                }
+
                 // Read first line
                 String[] speciesNameLine = line.split(",");
                 String type = speciesNameLine[0];
