@@ -4,21 +4,17 @@
  */
 package com.mycompany.ca1_programming;
 
+import com.mycompany.ca1_programming.enums.WaterType;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  *
- * @author User
+ * @author Pavel
  */
 public class Fish extends Animal {
     private int fins;
     private String waterType;
-    
-    private static final List<String> VALID_WATER_TYPES = Arrays.asList(
-        "Fresh Water",
-        "Salt Water"
-    );
     
     public Fish(String species, String name, String habitat, String dob, double weight, int fins, String waterType) {
         super(species, name, habitat, dob, weight);
@@ -43,8 +39,8 @@ public class Fish extends Animal {
         }
         
         // Validates if waterType is a valid value
-        if (VALID_WATER_TYPES.stream().noneMatch(wt -> wt.equalsIgnoreCase(waterType))) {
-            throw new IllegalArgumentException(getTypeAndName(name, dob) + "Invalid water type, must be one of: " + VALID_WATER_TYPES);
+        if (!WaterType.isValidWaterType(waterType)) {
+            throw new IllegalArgumentException(getTypeAndName(name, dob) + "Invalid water type, must be one of: " + Arrays.toString(WaterType.values()));
         }
     }
 }

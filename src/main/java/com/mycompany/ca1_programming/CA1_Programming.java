@@ -33,7 +33,7 @@ public class CA1_Programming {
         if (isAnimalsEmpty) {
             System.out.println("You can now search for an animal by its type, species, habitat or name in our storage.");
             System.out.println("Please enter a search query in the following format - '<parameter>=<value>'");
-            System.out.println("For example 'type=Animal'");
+            System.out.println("For example 'type=Mammal'");
             System.out.println("Enter '*' if you want to see a list of all animals.");
             System.out.println("");
         } else {
@@ -277,17 +277,4 @@ public class CA1_Programming {
 
         return animals;
     }
-
-    // TODO: Validations
-//    private static String validateSpecies(String species) {
-//        try {
-//            species.matches("[A-Za-z ]+");
-//
-//            return species;
-//        } catch (IllegalArgumentException e) {
-//            System.err.println("The species must be text only: " + species);
-//
-//            throw new IllegalArgumentException();
-//        }
-//    }
 }

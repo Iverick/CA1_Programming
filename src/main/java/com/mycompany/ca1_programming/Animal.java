@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
+import com.mycompany.ca1_programming.enums.Habitat;
 
 /**
  *
@@ -21,21 +22,7 @@ public abstract class Animal {
     private String habitat;
     private String dob;
     private double weight;
-
-    private static final List<String> VALID_HABITATS = Arrays.asList(
-            "Cave",
-            "Desert",
-            "Grassland",
-            "Forest",
-            "Island",
-            "Ocean",
-            "Rainfall",
-            "Marine",
-            "Mountains"
-    );
     
-    private static final List<String> VALID_TYPES = Arrays.asList("MAMMAL", "FISH", "BIRD", "REPTILE");
-
     // Constructor method
     public Animal(String species, String name, String habitat, String dob, double weight) {
         // Call local method to validate passed parameters
@@ -73,8 +60,8 @@ public abstract class Animal {
         }
 
         // Check if habitat is a valid enum value
-        if (!VALID_HABITATS.contains(habitat)) {
-            throw new IllegalArgumentException(getTypeAndName(name, dob) + "Invalid habitat, must be one of: " + VALID_HABITATS);
+        if (!Habitat.isValidHabitat(habitat)) {
+            throw new IllegalArgumentException(getTypeAndName(name, dob) + "Invalid habitat, must be one of: " + Arrays.toString(Habitat.values()));
         }
 
         // Check if dob has a valid format
