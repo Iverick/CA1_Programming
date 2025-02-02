@@ -55,16 +55,14 @@ public abstract class Animal {
         return getClass().getSimpleName() + " species = " + species + ", name = " + name + ", habitat = " + habitat + ", dob = " + dob;
     }
 
-    // Helper method user to provide an infromation about an object for an error message
-    private String getTypeAndName(String name, String dob) {
+    // This helper method is used to provide information about an object for an error message
+    protected String getTypeAndName(String name, String dob) {
         return "type=" + getClass().getSimpleName() + ", name=" + name + ", dob=" + dob + ". ";
     }
     
     // This method contains a set of validators for each property we try to assign to an object in the constructor
     private void validateProperties(String species, String name, String habitat, String dob, double weight) {
         // Check if the species value contains letters and spaces only and throw an error with an error message if validation fails
-        System.out.println("");
-        
         if (!species.matches("^[a-zA-Z\s]+$")) {
             throw new IllegalArgumentException(getTypeAndName(name, dob) + "Species value must be text only.");
         }
@@ -74,7 +72,7 @@ public abstract class Animal {
             throw new IllegalArgumentException(getTypeAndName(name, dob) + "The name can be text and/or numbers.");
         }
 
-        // Check if habitat is an allowed enum value
+        // Check if habitat is a valid enum value
         if (!VALID_HABITATS.contains(habitat)) {
             throw new IllegalArgumentException(getTypeAndName(name, dob) + "Invalid habitat, must be one of: " + VALID_HABITATS);
         }

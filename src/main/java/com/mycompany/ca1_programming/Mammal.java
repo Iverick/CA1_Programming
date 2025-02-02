@@ -15,10 +15,12 @@ public class Mammal extends Animal {
 
     public Mammal(String species, String name, String habitat, String dob, double weight, boolean fur, boolean stripes) {
         super(species, name, habitat, dob, weight);
+        
         this.fur = fur;
         this.stripes = stripes;
     }
-
+        
+    // Override toString method to additionally display local fields
     @Override
     public String toString() {
         String furString = fur ? "yes" : "no";

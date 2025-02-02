@@ -245,7 +245,7 @@ public class CA1_Programming {
                         break;
 
                     case "Bird":
-                        double wingspan = 0.0;
+                        Double wingspan = null;
                         Boolean migratory = null;
 
                         // Same as for other classes but with different properties
