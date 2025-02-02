@@ -2,7 +2,7 @@ Mammal,Tiger,Shere Khan
 Forest
 2015/07/15,220
 Fur,true,Stripes,true
-Fish,Great White Shark,Jaws
+Dog,Great White Shark,Jaws
 Ocean
 2010/06/21,1500
 Fins,5,Water Type,salt water

@@ -24,7 +24,7 @@ public class CA1_Programming {
         displaySearchInstructions(animals.size() > 0);
         interactWithUser(animals);
     }
-    
+
     private static void displaySearchInstructions(Boolean isAnimalsEmpty) {
         System.out.println("");
         System.out.println("Successfully import animals from the file!");
@@ -53,7 +53,7 @@ public class CA1_Programming {
         List<Animal> animalsSearchResult;
         String[] searchProperties = {"type", "species", "habitat", "name"};
         String seachQueryRegex = "^[a-zA-Z]+=[a-zA-Z0-9 ]+$";
-        
+
         Scanner sc = new Scanner(System.in);
 
         // Use do while loop to interact with the user via command shell until the user types 'quit'
@@ -61,7 +61,7 @@ public class CA1_Programming {
             // Read user input
             userInput = sc.nextLine();
             System.out.println("");
-            
+
             // Displays all animals
             if (userInput.equals(displayAll)) {
                 System.out.println("The list of all animals added to our storage.");
@@ -74,7 +74,7 @@ public class CA1_Programming {
                 System.out.println("");
                 continue;
             }
-            
+
             // Check if provided search query matches required format
             if (!userInput.matches(seachQueryRegex)) {
                 System.out.println("Please provide a proper search query in the following format '<parameter>=<value>' or type 'quit'.");
@@ -153,10 +153,10 @@ public class CA1_Programming {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFilePath))) {
             String line;
 
-            while ((line = bufferedReader.readLine()) != null ) {
+            while ((line = bufferedReader.readLine()) != null) {
                 // Skip empty lines
                 if (line.trim().isEmpty()) {
-                    continue; 
+                    continue;
                 }
 
                 // Read first line
@@ -194,7 +194,12 @@ public class CA1_Programming {
                         }
 
                         // Create a new object of class Mammal with parsed values
-                        animals.add(new Mammal(species, name, habitat, dob, weight, fur, stripes));
+                        try {
+                            animals.add(new Mammal(species, name, habitat, dob, weight, fur, stripes));
+                        } catch (IllegalArgumentException error) {
+                            System.err.println("Error creating an animal: " + error);
+                            System.out.println("");
+                        }
                         break;
 
                     case "Fish":
@@ -210,7 +215,12 @@ public class CA1_Programming {
                             }
                         }
 
-                        animals.add(new Fish(species, name, habitat, dob, weight, fins, waterType));
+                        try {
+                            animals.add(new Fish(species, name, habitat, dob, weight, fins, waterType));
+                        } catch (IllegalArgumentException error) {
+                            System.err.println("Error creating an animal: " + error);
+                            System.out.println("");
+                        }
                         break;
 
                     case "Reptile":
@@ -226,7 +236,12 @@ public class CA1_Programming {
                             }
                         }
 
-                        animals.add(new Reptile(species, name, habitat, dob, weight, scales, legs));
+                        try {
+                            animals.add(new Reptile(species, name, habitat, dob, weight, scales, legs));
+                        } catch (IllegalArgumentException error) {
+                            System.err.println("Error creating an animal: " + error);
+                            System.out.println("");
+                        }
                         break;
 
                     case "Bird":
@@ -245,8 +260,15 @@ public class CA1_Programming {
                             }
                         }
 
-                        animals.add(new Bird(species, name, habitat, dob, weight, wingspan, migratory));
+                        try {
+                            animals.add(new Bird(species, name, habitat, dob, weight, wingspan, migratory));
+                        } catch (IllegalArgumentException error) {
+                            System.err.println("Error creating an animal: " + error);
+                            System.out.println("");
+                        }
                         break;
+                    default:
+                        System.out.println("Error: Invalid animal type '" + type + "'. Allowed values: Mammal, Fish, Reptile, Bird.");
                 }
             }
         } catch (Exception e) {
