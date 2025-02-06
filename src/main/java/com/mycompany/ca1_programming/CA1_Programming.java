@@ -1,5 +1,6 @@
 package com.mycompany.ca1_programming;
 
+import com.mycompany.ca1_programming.models.Animal;
 import com.mycompany.ca1_programming.helpers.AnimalsParser;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,8 @@ import java.util.Scanner;
 /**
  *
  * @author Pavel
+ * 
+ * Git repo - https://github.com/Iverick/CA1_Programming
  */
 public class CA1_Programming {
     public static void main(String[] args) {

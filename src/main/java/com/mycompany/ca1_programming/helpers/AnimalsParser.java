@@ -4,11 +4,11 @@
  */
 package com.mycompany.ca1_programming.helpers;
 
-import com.mycompany.ca1_programming.Animal;
-import com.mycompany.ca1_programming.Bird;
-import com.mycompany.ca1_programming.Fish;
-import com.mycompany.ca1_programming.Mammal;
-import com.mycompany.ca1_programming.Reptile;
+import com.mycompany.ca1_programming.models.Animal;
+import com.mycompany.ca1_programming.models.Bird;
+import com.mycompany.ca1_programming.models.Fish;
+import com.mycompany.ca1_programming.models.Mammal;
+import com.mycompany.ca1_programming.models.Reptile;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Paths;
