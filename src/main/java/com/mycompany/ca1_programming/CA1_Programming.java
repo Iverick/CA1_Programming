@@ -1,8 +1,8 @@
 package com.mycompany.ca1_programming;
 
-import com.mycompany.ca1_programming.models.Animal;
+import com.mycompany.ca1_programming.helpers.AnimalSearcher;
 import com.mycompany.ca1_programming.helpers.AnimalsParser;
-import java.util.ArrayList;
+import com.mycompany.ca1_programming.models.Animal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -93,7 +93,7 @@ public class CA1_Programming {
             }
 
             // Call static searchAnimals method to perform a search on the list of animals and assign the result to searchResult list.
-            animalsSearchResult = searchAnimals(animals, searchKey, searchValue);
+            animalsSearchResult = AnimalSearcher.searchAnimals(animals, searchKey, searchValue);
 
             if (!animalsSearchResult.isEmpty()) {
                 // Display the list of animals that match the search criteria
@@ -113,40 +113,5 @@ public class CA1_Programming {
             System.out.println("Please enter a search query or type 'quit' to leave this program.");
             System.out.println("");
         } while (!userInput.equals(quit));
-    }
-
-    private static List<Animal> searchAnimals(List<Animal> animals, String searchKey, String searchValue) {
-        List<Animal> animalMatches = new ArrayList<>();
-
-        // Loop over each animal to find if it matches the search query
-        for (Animal animal : animals) {
-            // Use switch to iterate between allowed search keys
-            switch (searchKey.toLowerCase()) {
-                case "type":
-                    // If animal's type matches the search value add it to the matches list
-                    if (animal.getClass().getSimpleName().equalsIgnoreCase(searchValue)) {
-                        animalMatches.add(animal);
-                    }
-                    break;
-                case "habitat":
-                    // Same as the previous step but for a different Animal property
-                    if (animal.getHabitat().equalsIgnoreCase(searchValue)) {
-                        animalMatches.add(animal);
-                    }
-                    break;
-                case "name":
-                    if (animal.getName().equalsIgnoreCase(searchValue)) {
-                        animalMatches.add(animal);
-                    }
-                    break;
-                case "species":
-                    if (animal.getSpecies().equalsIgnoreCase(searchValue)) {
-                        animalMatches.add(animal);
-                    }
-                    break;
-            }
-        }
-
-        return animalMatches;
     }
 }

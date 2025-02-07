@@ -10,6 +10,10 @@ Reptile,Komodo Dragon,Rex
 Island
 2010/09/10,70
 Scales,true,Legs,4
+Bird,Eagle,Freedom
+Mountains
+2018/03/05,-6.5
+Wingspan,230.0cm,Migratory,true
 Bird,Bald Eagle,Freedom
 Mountains
 2018/03/05,6.5
